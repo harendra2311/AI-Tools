@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-src/ai_tools/__init__.py
-src/ai_tools/cli.py
-src/ai_tools.egg-info/PKG-INFO
-src/ai_tools.egg-info/SOURCES.txt
-src/ai_tools.egg-info/dependency_links.txt
-src/ai_tools.egg-info/entry_points.txt
-src/ai_tools.egg-info/top_level.txt

@@ -1,2 +1,0 @@
-[console_scripts]
-ai-tools = ai_tools.cli:main
