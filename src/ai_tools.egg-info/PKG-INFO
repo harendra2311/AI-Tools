@@ -1,3 +1,10 @@
+Metadata-Version: 2.4
+Name: ai-tools
+Version: 0.1.0
+Summary: A collection of AI utilities and tooling
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
 # AI-Tools
 
 A collection of AI utilities and tooling.
