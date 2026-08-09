@@ -11,7 +11,5 @@ RUN apt-get update \
         build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -s /bin/bash ubuntu
-
 USER ubuntu
 WORKDIR /home/ubuntu
