@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FileNova — Online PDF &amp; Image Tools</title>
+  <meta name="description" content="Convert, compress, resize and manage your documents and images with simple online tools.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://filenova.example/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="FileNova">
+  <meta property="og:title" content="FileNova — Online PDF &amp; Image Tools">
+  <meta property="og:description" content="Convert, compress, resize and manage your documents and images with simple online tools.">
+  <meta property="og:url" content="https://filenova.example/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FileNova — Online PDF &amp; Image Tools">
+  <meta name="twitter:description" content="Convert, compress, resize and manage your documents and images with simple online tools.">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    (function(){try{var t=localStorage.getItem('filenova-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+  </script>
+  
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h10a4 4 0 0 1 0 8H8"/><path d="M8 15l-4 4"/><path d="M14 7V4a1 1 0 0 1 1-1h5"/><path d="M20 3v5"/></svg></span><span>FileNova</span></a>
+    <nav class="nav-desktop" aria-label="Primary">
+      <a href="tools.html">Tools</a>
+      <div class="nav-dropdown">
+        <button type="button" aria-haspopup="true">PDF Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="pdf-tools/compress-pdf.html">Compress PDF</a>
+          <a href="pdf-tools/merge-pdf.html">Merge PDF</a>
+          <a href="pdf-tools/split-pdf.html">Split PDF</a>
+          <a href="pdf-tools/jpg-to-pdf.html">JPG to PDF</a>
+          <a href="pdf-tools/pdf-to-word.html">PDF to Word</a>
+          <a href="pdf-tools/protect-pdf.html">Protect PDF</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button type="button" aria-haspopup="true">Image Tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="image-tools/compress-image.html">Compress Image</a>
+          <a href="image-tools/resize-image.html">Resize Image</a>
+          <a href="image-tools/convert-image.html">Convert Image</a>
+          <a href="image-tools/jpg-to-webp.html">JPG to WebP</a>
+          <a href="image-tools/background-remover.html">Background Remover</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <button type="button" aria-haspopup="true">Resources <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="blog.html">Blog</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="icon-btn" data-search-open aria-label="Search tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+      <button type="button" class="icon-btn" data-theme-toggle aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg></button>
+      <button type="button" class="icon-btn menu-toggle" data-menu-toggle aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<nav id="mobile-nav" class="mobile-nav" data-mobile-nav aria-label="Mobile">
+  <a href="tools.html">All Tools</a>
+  <div class="mobile-section-title">PDF Tools</div>
+  <a href="pdf-tools/compress-pdf.html">Compress PDF</a>
+  <a href="pdf-tools/merge-pdf.html">Merge PDF</a>
+  <a href="pdf-tools/jpg-to-pdf.html">JPG to PDF</a>
+  <a href="pdf-tools/pdf-to-word.html">PDF to Word</a>
+  <div class="mobile-section-title">Image Tools</div>
+  <a href="image-tools/compress-image.html">Compress Image</a>
+  <a href="image-tools/resize-image.html">Resize Image</a>
+  <a href="image-tools/convert-image.html">Convert Image</a>
+  <div class="mobile-section-title">Resources</div>
+  <a href="blog.html">Blog</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
+<div class="search-overlay" data-search-overlay aria-hidden="true">
+  <div class="search-panel" role="dialog" aria-label="Search tools">
+    <label class="sr-only" for="global-search">Search tools</label>
+    <input id="global-search" type="search" placeholder="Search for a tool..." data-search-input autocomplete="off">
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>
+
+<main id="main">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="hero-eyebrow">FileNova · PDF &amp; Image Toolkit</p>
+        <h1>Everything You Need for Your Files</h1>
+        <p class="hero-lead">Convert, compress, resize and manage your documents and images with simple online tools.</p>
+        <form class="hero-search" data-hero-search role="search">
+          <label class="sr-only" for="hero-q">Search for a tool</label>
+          <input id="hero-q" type="search" placeholder="Search for a tool..." autocomplete="off">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+        <div class="popular-chips" aria-label="Popular tools"><a class="chip" href="pdf-tools/compress-pdf.html">Compress PDF</a><a class="chip" href="pdf-tools/merge-pdf.html">Merge PDF</a><a class="chip" href="pdf-tools/jpg-to-pdf.html">JPG to PDF</a><a class="chip" href="image-tools/compress-image.html">Compress Image</a><a class="chip" href="image-tools/resize-image.html">Resize Image</a></div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="illustration-stage">
+          <div class="orbit-ring"></div>
+          <div class="float-card pdf"><div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div><strong>PDF Ready</strong><span>Documents</span></div>
+          <div class="float-card image"><div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div><strong>Images</strong><span>JPG · PNG · WebP</span></div>
+          <div class="float-card compress"><div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><strong>Compressing</strong><div class="progress-bar"><i></i></div></div>
+          <div class="float-card convert"><div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><strong>Convert</strong><span>Fast pipeline</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="container"><div class="ad-slot ad-top">Advertisement</div></div>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div><h2>Popular Tools</h2><p>Start with the workflows people open most often.</p></div>
+        <a class="btn btn-secondary" href="tools.html">View all tools</a>
+      </div>
+      <div class="tool-grid cols-4"><a class="tool-card" href="pdf-tools/compress-pdf.html" data-tool-card data-name="Compress PDF" data-desc="Reduce PDF size while keeping quality." data-categories="pdf compress">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Compress PDF</h3>
+  <p>Reduce PDF size while keeping quality.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/merge-pdf.html" data-tool-card data-name="Merge PDF" data-desc="Combine multiple PDF files into one." data-categories="pdf utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Merge PDF</h3>
+  <p>Combine multiple PDF files into one.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/split-pdf.html" data-tool-card data-name="Split PDF" data-desc="Extract pages or split into multiple files." data-categories="pdf utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Split PDF</h3>
+  <p>Extract pages or split into multiple files.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/pdf-to-word.html" data-tool-card data-name="PDF to Word" data-desc="Convert PDF documents into editable Word files." data-categories="pdf convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>PDF to Word</h3>
+  <p>Convert PDF documents into editable Word files.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/jpg-to-pdf.html" data-tool-card data-name="JPG to PDF" data-desc="Convert images into a PDF document." data-categories="pdf convert images">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>JPG to PDF</h3>
+  <p>Convert images into a PDF document.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/compress-image.html" data-tool-card data-name="Compress Image" data-desc="Reduce image size for web and sharing." data-categories="images compress">
+  <div class="tool-card-top">
+    <div class="tool-icon image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Compress Image</h3>
+  <p>Reduce image size for web and sharing.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/resize-image.html" data-tool-card data-name="Resize Image" data-desc="Change image dimensions precisely." data-categories="images utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Resize Image</h3>
+  <p>Change image dimensions precisely.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/convert-image.html" data-tool-card data-name="Convert Image" data-desc="Switch between popular image formats." data-categories="images convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Convert Image</h3>
+  <p>Switch between popular image formats.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+</div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div><h2>Browse by Category</h2><p>Filter the full toolkit without leaving the page.</p></div>
+      </div>
+      <div class="category-filters"><button type="button" class="cat-btn is-active" data-cat-filter="all" aria-pressed="true">All Tools</button><button type="button" class="cat-btn" data-cat-filter="pdf" aria-pressed="false">PDF</button><button type="button" class="cat-btn" data-cat-filter="convert" aria-pressed="false">Convert</button><button type="button" class="cat-btn" data-cat-filter="compress" aria-pressed="false">Compress</button><button type="button" class="cat-btn" data-cat-filter="images" aria-pressed="false">Images</button><button type="button" class="cat-btn" data-cat-filter="security" aria-pressed="false">Security</button><button type="button" class="cat-btn" data-cat-filter="ocr" aria-pressed="false">OCR</button><button type="button" class="cat-btn" data-cat-filter="utilities" aria-pressed="false">Utilities</button></div>
+      <div class="tool-grid" data-tool-grid><a class="tool-card" href="pdf-tools/compress-pdf.html" data-tool-card data-name="Compress PDF" data-desc="Reduce PDF size while keeping quality." data-categories="pdf compress">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Compress PDF</h3>
+  <p>Reduce PDF size while keeping quality.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/merge-pdf.html" data-tool-card data-name="Merge PDF" data-desc="Combine multiple PDF files into one." data-categories="pdf utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Merge PDF</h3>
+  <p>Combine multiple PDF files into one.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/split-pdf.html" data-tool-card data-name="Split PDF" data-desc="Extract pages or split into multiple files." data-categories="pdf utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Split PDF</h3>
+  <p>Extract pages or split into multiple files.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/rotate-pdf.html" data-tool-card data-name="Rotate PDF" data-desc="Rotate pages left or right in bulk." data-categories="pdf utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Rotate PDF</h3>
+  <p>Rotate pages left or right in bulk.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/pdf-to-word.html" data-tool-card data-name="PDF to Word" data-desc="Convert PDF documents into editable Word files." data-categories="pdf convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>PDF to Word</h3>
+  <p>Convert PDF documents into editable Word files.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/pdf-to-jpg.html" data-tool-card data-name="PDF to JPG" data-desc="Export PDF pages as JPG images." data-categories="pdf convert images">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>PDF to JPG</h3>
+  <p>Export PDF pages as JPG images.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/pdf-to-png.html" data-tool-card data-name="PDF to PNG" data-desc="Export PDF pages as PNG images." data-categories="pdf convert images">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>PDF to PNG</h3>
+  <p>Export PDF pages as PNG images.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/jpg-to-pdf.html" data-tool-card data-name="JPG to PDF" data-desc="Convert images into a PDF document." data-categories="pdf convert images">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>JPG to PDF</h3>
+  <p>Convert images into a PDF document.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/word-to-pdf.html" data-tool-card data-name="Word to PDF" data-desc="Turn Word documents into PDF files." data-categories="pdf convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Word to PDF</h3>
+  <p>Turn Word documents into PDF files.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/excel-to-pdf.html" data-tool-card data-name="Excel to PDF" data-desc="Export spreadsheets to PDF." data-categories="pdf convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Excel to PDF</h3>
+  <p>Export spreadsheets to PDF.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/protect-pdf.html" data-tool-card data-name="Protect PDF" data-desc="Add a password to lock your PDF." data-categories="pdf security">
+  <div class="tool-card-top">
+    <div class="tool-icon security"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Protect PDF</h3>
+  <p>Add a password to lock your PDF.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/unlock-pdf.html" data-tool-card data-name="Unlock PDF" data-desc="Remove password protection when you know it." data-categories="pdf security">
+  <div class="tool-card-top">
+    <div class="tool-icon security"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Unlock PDF</h3>
+  <p>Remove password protection when you know it.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/watermark-pdf.html" data-tool-card data-name="Watermark PDF" data-desc="Stamp text or image watermarks on pages." data-categories="pdf utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Watermark PDF</h3>
+  <p>Stamp text or image watermarks on pages.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="pdf-tools/add-page-numbers.html" data-tool-card data-name="Add Page Numbers" data-desc="Number PDF pages with flexible placement." data-categories="pdf utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6M9 11h2"/></svg></div>
+    <span class="badge">PDF</span>
+  </div>
+  <h3>Add Page Numbers</h3>
+  <p>Number PDF pages with flexible placement.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/compress-image.html" data-tool-card data-name="Compress Image" data-desc="Reduce image size for web and sharing." data-categories="images compress">
+  <div class="tool-card-top">
+    <div class="tool-icon image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Compress Image</h3>
+  <p>Reduce image size for web and sharing.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/resize-image.html" data-tool-card data-name="Resize Image" data-desc="Change image dimensions precisely." data-categories="images utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Resize Image</h3>
+  <p>Change image dimensions precisely.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/convert-image.html" data-tool-card data-name="Convert Image" data-desc="Switch between popular image formats." data-categories="images convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Convert Image</h3>
+  <p>Switch between popular image formats.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/jpg-to-webp.html" data-tool-card data-name="JPG to WebP" data-desc="Convert JPG photos to modern WebP." data-categories="images convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>JPG to WebP</h3>
+  <p>Convert JPG photos to modern WebP.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/png-to-webp.html" data-tool-card data-name="PNG to WebP" data-desc="Convert PNG graphics to WebP." data-categories="images convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>PNG to WebP</h3>
+  <p>Convert PNG graphics to WebP.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/webp-to-jpg.html" data-tool-card data-name="WebP to JPG" data-desc="Convert WebP images to JPG." data-categories="images convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>WebP to JPG</h3>
+  <p>Convert WebP images to JPG.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/webp-to-png.html" data-tool-card data-name="WebP to PNG" data-desc="Convert WebP images to PNG." data-categories="images convert">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>WebP to PNG</h3>
+  <p>Convert WebP images to PNG.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/image-to-pdf.html" data-tool-card data-name="Image to PDF" data-desc="Build a PDF from one or more images." data-categories="images convert pdf">
+  <div class="tool-card-top">
+    <div class="tool-icon convert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Image to PDF</h3>
+  <p>Build a PDF from one or more images.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/image-to-text.html" data-tool-card data-name="Image to Text" data-desc="Extract text from images with OCR." data-categories="images ocr">
+  <div class="tool-card-top">
+    <div class="tool-icon ocr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7V4h3M17 4h3v3M4 17v3h3M17 20h3v-3"/><path d="M8 8h8v8H8z"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Image to Text</h3>
+  <p>Extract text from images with OCR.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+
+<a class="tool-card" href="image-tools/background-remover.html" data-tool-card data-name="Background Remover" data-desc="Isolate subjects by removing backgrounds." data-categories="images utilities">
+  <div class="tool-card-top">
+    <div class="tool-icon image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+    <span class="badge">IMAGES</span>
+  </div>
+  <h3>Background Remover</h3>
+  <p>Isolate subjects by removing backgrounds.</p>
+  <div class="tool-card-footer">
+    <span class="arrow-link">Open <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+  </div>
+</a>
+<p class="no-results hidden" data-no-results>No tools match your filters.</p></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-header"><div><h2>How FileNova Works</h2><p>A clear three-step path from upload to download.</p></div></div>
+      <div class="steps">
+        <div class="step-card"><div class="step-num">1</div><h3>Choose a tool</h3><p class="text-muted">Pick a PDF or image utility that matches your task.</p></div>
+        <div class="step-card"><div class="step-num">2</div><h3>Add your files</h3><p class="text-muted">Drag and drop or browse—preview details before you continue.</p></div>
+        <div class="step-card"><div class="step-num">3</div><h3>Process &amp; download</h3><p class="text-muted">Run the tool when processing is connected, then save the result.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="container">
+      <div class="cta-band">
+        <div><h2>Need the full catalog?</h2><p>Explore every converter, compressor, and utility in one place.</p></div>
+        <a class="btn btn-primary btn-lg" href="tools.html">Browse all tools</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h10a4 4 0 0 1 0 8H8"/><path d="M8 15l-4 4"/><path d="M14 7V4a1 1 0 0 1 1-1h5"/><path d="M20 3v5"/></svg></span><span>FileNova</span></a>
+      <p>Fast, focused online tools for PDFs and images. Built for clarity—ready for your next file task.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <a href="tools.html">All Tools</a>
+      <a href="tools.html?cat=pdf">PDF Tools</a>
+      <a href="tools.html?cat=images">Image Tools</a>
+      <a href="tools.html?cat=convert">Converters</a>
+    </div>
+    <div class="footer-col">
+      <h4>PDF Tools</h4>
+      <a href="pdf-tools/compress-pdf.html">Compress PDF</a>
+      <a href="pdf-tools/merge-pdf.html">Merge PDF</a>
+      <a href="pdf-tools/jpg-to-pdf.html">JPG to PDF</a>
+      <a href="pdf-tools/protect-pdf.html">Protect PDF</a>
+    </div>
+    <div class="footer-col">
+      <h4>Image Tools</h4>
+      <a href="image-tools/compress-image.html">Compress Image</a>
+      <a href="image-tools/resize-image.html">Resize Image</a>
+      <a href="image-tools/jpg-to-webp.html">JPG to WebP</a>
+      <a href="image-tools/background-remover.html">Background Remover</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>&copy; 2026 FileNova. All rights reserved.</span>
+    <span>Static frontend — processing API coming in Phase 2.</span>
+  </div>
+</footer>
+<script src="assets/js/main.js" defer></script>
+
+</body></html>
