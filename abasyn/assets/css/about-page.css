@@ -1,0 +1,294 @@
+/* About page layout — extends Abasyn design system */
+.abs-page-hero {
+	position: relative;
+	min-height: min(72vh, 640px);
+	display: flex;
+	align-items: flex-end;
+	overflow: hidden;
+	background: var(--abs-dark, #141b16);
+}
+
+.abs-page-hero__media {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.abs-page-hero__scrim {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(180deg, rgba(20, 27, 22, 0.35) 0%, rgba(20, 27, 22, 0.72) 55%, rgba(20, 27, 22, 0.92) 100%),
+		radial-gradient(ellipse at 20% 80%, rgba(43, 60, 54, 0.55), transparent 55%);
+}
+
+.abs-page-hero__inner {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 1360px;
+	margin: 0 auto;
+	padding: 120px 48px 72px;
+}
+
+.abs-page-hero__brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	text-decoration: none;
+	color: #f5f2e8;
+	margin-bottom: 28px;
+}
+
+.abs-page-hero__mark {
+	width: 52px;
+	height: 52px;
+	background: var(--abs-gold, #b1996a);
+	color: var(--abs-dark, #141b16);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 3px;
+}
+
+.abs-page-hero__mark svg {
+	width: 24px;
+	height: 24px;
+}
+
+.abs-page-hero__brand-name {
+	line-height: 1;
+}
+
+.abs-page-hero__brand-title {
+	display: block;
+	font-size: 28px;
+	font-weight: 600;
+	letter-spacing: 0.4px;
+	color: #f5f2e8;
+}
+
+.abs-page-hero__brand-sub {
+	display: block;
+	font-size: 11px;
+	letter-spacing: 3.5px;
+	color: #c8b48a;
+	margin-top: 4px;
+	text-transform: uppercase;
+}
+
+.abs-page-hero__title {
+	font-weight: 500;
+	font-size: clamp(36px, 5.5vw, 64px);
+	line-height: 1.02;
+	letter-spacing: -0.4px;
+	color: #fff;
+	margin: 0 0 18px;
+	max-width: 16ch;
+}
+
+.abs-page-hero__title em {
+	font-style: italic;
+	color: #d8c79c;
+}
+
+.abs-page-hero__lede {
+	font-size: 17px;
+	line-height: 1.65;
+	color: #d7d3c6;
+	max-width: 520px;
+	margin: 0;
+}
+
+.abs-story {
+	background: var(--abs-cream, #faf8f2);
+	padding: 100px 48px;
+}
+
+.abs-story__inner {
+	max-width: 860px;
+	margin: 0 auto;
+}
+
+.abs-story__title {
+	font-weight: 500;
+	font-size: clamp(32px, 4vw, 48px);
+	line-height: 1.1;
+	color: var(--abs-ink, #1c1c18);
+	margin: 14px 0 36px;
+}
+
+.abs-story__body {
+	color: #4a4a44;
+	font-size: 17px;
+	line-height: 1.8;
+}
+
+.abs-story__body p {
+	margin: 0 0 22px;
+}
+
+.abs-story__body p:last-child {
+	margin-bottom: 0;
+}
+
+.abs-story__name {
+	margin-top: 36px;
+	padding-top: 28px;
+	border-top: 1px solid #e0d9c8;
+	font-size: 16.5px;
+	line-height: 1.7;
+	color: #3a3a34;
+}
+
+.abs-story__name strong {
+	color: var(--abs-green, #2b3c36);
+	font-weight: 600;
+}
+
+.abs-believe {
+	background: var(--abs-cream2, #f1efe8);
+	padding: 100px 48px;
+}
+
+.abs-believe__inner {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.abs-believe__head {
+	max-width: 640px;
+	margin-bottom: 48px;
+}
+
+.abs-believe__title {
+	font-weight: 500;
+	font-size: clamp(32px, 4vw, 48px);
+	line-height: 1.1;
+	color: var(--abs-ink, #1c1c18);
+	margin: 14px 0 0;
+}
+
+.abs-believe__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 48px;
+	border-top: 1px solid rgba(26, 26, 24, 0.12);
+}
+
+.abs-believe__item {
+	padding: 28px 0;
+	border-bottom: 1px solid rgba(26, 26, 24, 0.12);
+}
+
+.abs-believe__item-title {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-size: 26px;
+	font-weight: 500;
+	line-height: 1.2;
+	color: var(--abs-ink, #1c1c18);
+	margin: 0 0 10px;
+}
+
+.abs-believe__item-text {
+	margin: 0;
+	font-size: 15.5px;
+	line-height: 1.65;
+	color: #4a4a42;
+}
+
+.abs-ahead {
+	background: var(--abs-dark, #141b16);
+	color: #e8e3d5;
+	padding: 110px 48px;
+}
+
+.abs-ahead__inner {
+	max-width: 860px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.abs-ahead .abs-eyebrow {
+	justify-content: center;
+	color: var(--abs-gold-l, #c8b48a);
+	margin-bottom: 28px;
+}
+
+.abs-ahead .abs-eyebrow::before,
+.abs-ahead .abs-eyebrow::after {
+	background: #8a7a54;
+	content: "";
+	width: 40px;
+	height: 1px;
+}
+
+.abs-ahead__title {
+	font-weight: 500;
+	font-size: clamp(32px, 4vw, 48px);
+	line-height: 1.1;
+	color: #ece7d8;
+	margin: 0 0 28px;
+}
+
+.abs-ahead__title em {
+	font-style: italic;
+	color: var(--abs-gold-l, #c8b48a);
+}
+
+.abs-ahead__body {
+	font-size: 17px;
+	line-height: 1.75;
+	color: #b6b3a4;
+	margin: 0;
+}
+
+.abs-hd__item.is-active > a {
+	color: var(--abs-ink, #1c1c18);
+}
+
+.abs-hd__item.is-active > a::after {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 1px;
+	background: var(--abs-gold, #b1996a);
+	margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+	.abs-page-hero__inner {
+		padding: 100px 24px 56px;
+	}
+
+	.abs-story,
+	.abs-believe,
+	.abs-ahead {
+		padding: 72px 24px;
+	}
+
+	.abs-believe__list {
+		grid-template-columns: 1fr;
+		gap: 0;
+	}
+}
+
+@media (max-width: 768px) {
+	.abs-page-hero {
+		min-height: min(68vh, 560px);
+	}
+
+	.abs-page-hero__brand-title {
+		font-size: 24px;
+	}
+
+	.abs-page-hero__lede {
+		font-size: 15px;
+	}
+}
