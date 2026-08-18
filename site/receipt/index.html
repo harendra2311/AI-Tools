@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Receipt Generator | Draftline</title>
+  <meta name="description" content="Create a printable professional receipt in seconds.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header" id="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../" aria-label="Draftline home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0e6b56"/><path d="M9 10h10.5a3.5 3.5 0 0 1 0 7H13v5" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M9 17h14" stroke="#c9e8df" stroke-width="2" stroke-linecap="round"/></svg>
+        Draftline
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="../invoice/">Invoice Generator</a>
+        <a class="nav-link" href="../tools/">Business Tools</a>
+        <a class="nav-link" href="../templates/">Templates</a>
+        <a class="nav-link" href="../resources/">Resources</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost btn-signin" href="../sign-in/">Sign In</a>
+        <a class="btn btn-primary" href="../invoice/">Create Invoice</a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span></button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" hidden>
+      <a href="../invoice/">Invoice Generator</a>
+      <a href="../tools/">Business Tools</a>
+      <a href="../templates/">Templates</a>
+      <a href="../resources/">Resources</a>
+      <a href="../sign-in/">Sign In</a>
+    </nav>
+  </header>
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Free · No signup · PDF download</p>
+        <h1>Receipt Generator</h1>
+        <p class="hero-lead">Create a printable professional receipt in seconds.</p>
+      </div>
+    </section>
+    <section class="wrap app-shell">
+      <form class="panel no-print" id="doc-form" data-doc-type="receipt">
+        <div class="toolbar">
+          <strong>Details</strong>
+          <button type="button" class="btn btn-secondary" id="save-local">Save locally</button>
+        </div>
+        <div class="form-grid">
+          <label>From / Business<input name="fromName" value="Your business"></label>
+          <label>Document number<input name="number" value="0001"></label>
+          <label class="span-2">Business details<textarea name="fromMeta">123 Market Street
+Austin, TX</textarea></label>
+          <label>Bill to<input name="toName" value="Client name"></label>
+          <label>Currency
+            <select name="currency">
+              <option>USD</option><option>GBP</option><option>EUR</option>
+              <option>CAD</option><option>AUD</option>
+            </select>
+          </label>
+          <label class="span-2">Client details<textarea name="toMeta">Client company
+City, Country</textarea></label>
+          <label>Date<input type="date" name="date"></label>
+          <label>Due date<input type="date" name="due"></label>
+          <label>Tax %<input type="number" name="tax" value="0" min="0" step="0.01"></label>
+          <label>Discount %<input type="number" name="discount" value="0" min="0" step="0.01"></label>
+          <label class="span-2">Payment information<input name="payment" value="Bank transfer · Due on receipt"></label>
+          <label class="span-2">Notes<textarea name="notes">Thank you for your business. Please include the document number with payment.</textarea></label>
+        </div>
+        <div class="toolbar" style="margin-top:16px">
+          <strong>Line items</strong>
+          <button type="button" class="btn btn-secondary" id="add-item">Add item</button>
+        </div>
+        <table class="items-table">
+          <thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th></th></tr></thead>
+          <tbody id="items-body"></tbody>
+        </table>
+      </form>
+      <div>
+        <div class="toolbar no-print">
+          <strong>Preview</strong>
+          <button type="button" class="btn btn-primary" id="download-pdf">Download PDF</button>
+        </div>
+        <div class="preview-paper" id="preview"></div>
+      </div>
+    </section>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="../">Draftline</a>
+        <p>Simple invoice and business tools for freelancers and small businesses.</p>
+      </div>
+      <div>
+        <h3>Invoice Tools</h3>
+        <ul>
+          <li><a href="../invoice/">Invoice Generator</a></li>
+          <li><a href="../recurring-invoice/">Recurring Invoice</a></li>
+          <li><a href="../proforma/">Proforma Invoice</a></li>
+          <li><a href="../receipt/">Receipt Generator</a></li>
+          <li><a href="../quote/">Quote Generator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Business Tools</h3>
+        <ul>
+          <li><a href="../estimate/">Estimate Generator</a></li>
+          <li><a href="../credit-note/">Credit Note Generator</a></li>
+          <li><a href="../calculators/tax/">Tax Calculator</a></li>
+          <li><a href="../calculators/profit-margin/">Profit Margin Calculator</a></li>
+          <li><a href="../calculators/discount/">Discount Calculator</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="../templates/">Invoice Templates</a></li>
+          <li><a href="../guide/">Invoice Guide</a></li>
+          <li><a href="../resources/">Small Business Resources</a></li>
+          <li><a href="../blog/">Blog</a></li>
+          <li><a href="../#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <div>© 2026 Draftline</div>
+      <div class="footer-legal">
+        <a href="../privacy/">Privacy Policy</a>
+        <a href="../terms/">Terms</a>
+        <a href="../contact/">Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js" defer></script>
+  <script src="../js/document.js" defer></script>
+</body>
+</html>
