@@ -8,13 +8,15 @@ This repository uses a Python package managed with `pyproject.toml`. Cloud Agent
 
 ### Website
 
-The Draftline marketing site and invoice tools live in `site/`. Serve locally:
+The Draftline marketing site and invoice tools live in `site/`.
+
+Preview on your computer (this is required — `draftline.app` is not live yet, and `127.0.0.1` only works after the server is running):
 
 ```bash
-python3 -m http.server 8080 --directory site
+python3 serve.py
 ```
 
-Then open `http://127.0.0.1:8080/`.
+Then open **http://127.0.0.1:8080/** in Chrome. Use `http`, not `https`. Keep the terminal open while you view the page.
 
 ### Local setup
 

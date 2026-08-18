@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Generate inner Draftline pages with shared chrome."""
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -173,15 +174,32 @@ CALC_FORM = """
 """
 
 
+def rel_base(path: str) -> str:
+    parts = Path(path).parent.parts
+    return "../" * len(parts) if parts else ""
+
+
+def rewrite_urls(html: str, base: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        attr, url = match.group(1), match.group(2)
+        if url.startswith(("http://", "https://", "mailto:", "#")) or not url.startswith("/"):
+            return match.group(0)
+        if url == "/":
+            new = base or "./"
+        elif url.startswith("/#"):
+            new = f"{base or './'}{url[1:]}"
+        else:
+            new = f"{base}{url.lstrip('/')}"
+        return f'{attr}="{new}"'
+
+    return re.sub(r'(href|src)="([^"]+)"', repl, html)
+
+
 def write(path: str, title: str, description: str, body: str, extra_js: str = "") -> None:
     dest = ROOT / path
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(
-        HEADER.format(title=title, description=description)
-        + body
-        + FOOTER.format(extra_js=extra_js),
-        encoding="utf-8",
-    )
+    html = HEADER.format(title=title, description=description) + body + FOOTER.format(extra_js=extra_js)
+    dest.write_text(rewrite_urls(html, rel_base(path)), encoding="utf-8")
 
 
 docs = [
