@@ -1,0 +1,29 @@
+.wpsms-wrap { max-width: 1200px; }
+.wpsms-lead { font-size: 14px; max-width: 720px; }
+.wpsms-toolbar { margin: 16px 0; display: flex; gap: 8px; }
+.wpsms-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0 24px; }
+.wpsms-card { background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; padding: 12px 16px; }
+.wpsms-card h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; }
+.wpsms-card p { margin: 0; font-size: 22px; font-weight: 600; }
+.wpsms-card.sev-critical { border-left: 4px solid #b32d2e; }
+.wpsms-card.sev-high { border-left: 4px solid #d63638; }
+.wpsms-card.sev-medium { border-left: 4px solid #dba617; }
+.wpsms-card.sev-low { border-left: 4px solid #2271b1; }
+.wpsms-progress-wrap { margin: 12px 0 20px; }
+.wpsms-progress { height: 10px; background: #dcdcde; border-radius: 6px; overflow: hidden; }
+.wpsms-progress span { display: block; height: 100%; width: 0; background: #2271b1; transition: width .2s ease; }
+.wpsms-filters { display: flex; gap: 12px; align-items: center; margin: 12px 0; flex-wrap: wrap; }
+.wpsms-sev { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; }
+.wpsms-sev-critical { background: #fcf0f1; color: #8a2424; }
+.wpsms-sev-high { background: #fcf0f1; color: #b32d2e; }
+.wpsms-sev-medium { background: #fcf9e8; color: #614200; }
+.wpsms-sev-low { background: #f0f6fc; color: #0a4b78; }
+.wpsms-sev-info { background: #f6f7f7; color: #50575e; }
+.wpsms-modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 100000; display: flex; align-items: flex-start; justify-content: center; padding: 48px 16px; }
+.wpsms-modal[hidden] { display: none; }
+.wpsms-modal-inner { background: #fff; max-width: 900px; width: 100%; max-height: 80vh; overflow: auto; padding: 20px 24px; position: relative; box-shadow: 0 5px 20px rgba(0,0,0,.2); }
+.wpsms-modal-close { position: absolute; right: 12px; top: 8px; font-size: 22px; text-decoration: none; }
+.wpsms-snippet { background: #1d2327; color: #f0f0f1; padding: 12px; overflow: auto; font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; }
+.wpsms-incident code { display: block; margin-top: 4px; white-space: pre-wrap; }
+.wpsms-questions li { margin-bottom: 12px; }
+.wpsms-actions { display: flex; flex-wrap: wrap; gap: 4px; }
