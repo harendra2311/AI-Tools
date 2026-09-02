@@ -3,23 +3,38 @@
 
 	var scanning = false;
 	var timer = null;
-
-	function post(action, data) {
-		data = data || {};
-		data.action = action;
-		data.nonce = wpsmsAdmin.nonce;
-		return $.post(wpsmsAdmin.ajaxUrl, data);
-	}
+	var failCount = 0;
 
 	function setProgress(job) {
 		var pct = job && job.progress ? parseInt(job.progress, 10) : 0;
 		$('#wpsms-progress-bar').css('width', pct + '%');
 		if (job) {
+			var extra = '';
+			if (job.files_scanned) {
+				extra += ' — files: ' + job.files_scanned + '/' + (job.total_files || '?');
+			}
+			if (job.skipped) {
+				extra += ' — skipped: ' + job.skipped;
+			}
+			if (job.last_error) {
+				extra += ' — last skip: ' + job.last_error;
+			}
 			$('#wpsms-status-text').text(
-				'Status: ' + (job.status || 'idle') + ' — phase: ' + (job.phase || '—') +
-				(job.files_scanned ? (' — files: ' + job.files_scanned + '/' + (job.total_files || '?')) : '')
+				'Status: ' + (job.status || 'idle') + ' — phase: ' + (job.phase || '—') + extra
 			);
 		}
+	}
+
+	function post(action, data) {
+		data = data || {};
+		data.action = action;
+		data.nonce = wpsmsAdmin.nonce;
+		return $.ajax({
+			url: wpsmsAdmin.ajaxUrl,
+			method: 'POST',
+			data: data,
+			timeout: 20000
+		});
 	}
 
 	function applyCounts(payload) {
@@ -44,20 +59,33 @@
 	function tick() {
 		post('wpsms_scan_tick').done(function (res) {
 			if (!res || !res.success) {
-				scanning = false;
+				failCount += 1;
+				if (scanning && failCount < 10) {
+					timer = window.setTimeout(tick, 1500);
+				} else {
+					scanning = false;
+				}
 				return;
 			}
+			failCount = 0;
 			var job = res.data.job || {};
 			setProgress(job);
 			applyCounts(res.data);
 			if (job.status === 'running' || job.status === 'stopping') {
-				timer = window.setTimeout(tick, 400);
+				timer = window.setTimeout(tick, 350);
 			} else {
 				scanning = false;
 				loadFindings();
 			}
 		}).fail(function () {
-			scanning = false;
+			failCount += 1;
+			if (scanning && failCount < 10) {
+				$('#wpsms-status-text').text('Request timed out or failed. Skipping and retrying (' + failCount + '/10)…');
+				timer = window.setTimeout(tick, 1500);
+			} else {
+				scanning = false;
+				$('#wpsms-status-text').text('Scan stopped after repeated request failures. Click Run Full Scan to continue.');
+			}
 		});
 	}
 
@@ -66,7 +94,8 @@
 			return;
 		}
 		scanning = true;
-		post('wpsms_start_scan', { mode: mode }).done(function (res) {
+		failCount = 0;
+		post('wpsms_start_scan', { mode: mode, force: 1 }).done(function (res) {
 			if (!res || !res.success) {
 				scanning = false;
 				window.alert((res && res.data && res.data.message) || 'Unable to start scan.');
@@ -75,7 +104,15 @@
 			setProgress(res.data.job);
 			tick();
 		}).fail(function () {
-			scanning = false;
+			failCount += 1;
+			if (failCount < 5) {
+				scanning = false;
+				$('#wpsms-status-text').text('Start request failed. Retrying…');
+				timer = window.setTimeout(function () { start(mode); }, 1500);
+			} else {
+				scanning = false;
+				window.alert('Unable to start scan (network/timeout). Try again.');
+			}
 		});
 	}
 

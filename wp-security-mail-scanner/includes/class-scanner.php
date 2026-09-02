@@ -22,13 +22,16 @@ class WPSMS_Scanner {
 	/**
 	 * Start a scan.
 	 *
-	 * @param string $mode full|quick.
+	 * @param string $mode  full|quick.
+	 * @param bool   $force Restart even if a scan is already running.
 	 * @return array
 	 */
-	public static function start( $mode = 'full' ) {
-		$mode = ( 'quick' === $mode ) ? 'quick' : 'full';
-		$job  = self::get_job();
-		if ( isset( $job['status'] ) && 'running' === $job['status'] ) {
+	public static function start( $mode = 'full', $force = false ) {
+		$mode  = ( 'quick' === $mode ) ? 'quick' : 'full';
+		$job   = self::get_job();
+		$stale = empty( $job['updated_at'] ) || ( time() - (int) $job['updated_at'] ) > 90;
+		$busy  = isset( $job['status'] ) && in_array( $job['status'], array( 'running', 'stopping' ), true );
+		if ( $busy && ! $force && ! $stale ) {
 			return $job;
 		}
 
@@ -37,20 +40,24 @@ class WPSMS_Scanner {
 		self::reset_list_file();
 
 		$job = array(
-			'status'          => 'running',
-			'mode'            => $mode,
-			'phase'           => 'inventory',
-			'scan_id'         => $scan_id,
-			'offset'          => 0,
-			'db_offset'       => 0,
-			'total_files'     => 0,
-			'files_scanned'   => 0,
-			'inventory_cursor'=> '',
-			'started_at'      => time(),
-			'finished_at'     => 0,
-			'last_error'      => '',
-			'progress'        => 1,
-			'stop_requested'  => false,
+			'status'           => 'running',
+			'mode'             => $mode,
+			'phase'            => 'inventory',
+			'scan_id'          => $scan_id,
+			'offset'           => 0,
+			'db_offset'        => 0,
+			'total_files'      => 0,
+			'files_scanned'    => 0,
+			'skipped'          => 0,
+			'inventory_cursor' => '',
+			'started_at'       => time(),
+			'finished_at'      => 0,
+			'last_error'       => '',
+			'progress'         => 1,
+			'stop_requested'   => false,
+			'watchdog_file'    => '',
+			'watchdog_hits'    => 0,
+			'tick_lock'        => 0,
 		);
 		self::save_job( $job );
 		return $job;
@@ -87,6 +94,7 @@ class WPSMS_Scanner {
 	 * @param array $job Job.
 	 */
 	public static function save_job( array $job ) {
+		$job['updated_at'] = time();
 		update_option( self::JOB_OPTION, $job, false );
 	}
 
@@ -96,7 +104,8 @@ class WPSMS_Scanner {
 	 * @return array
 	 */
 	public static function tick() {
-		@set_time_limit( 25 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		@set_time_limit( 20 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		@ini_set( 'max_execution_time', '20' ); // phpcs:ignore WordPress.PHP.IniSet.Risky, WordPress.PHP.NoSilencedErrors.Discouraged
 		$job = self::get_job();
 		if ( empty( $job['status'] ) ) {
 			return array( 'status' => 'idle' );
@@ -105,6 +114,7 @@ class WPSMS_Scanner {
 			$job['status']      = 'stopped';
 			$job['finished_at'] = time();
 			$job['progress']    = 100;
+			$job['tick_lock']   = 0;
 			self::save_job( $job );
 			self::store_last_scan( $job );
 			return $job;
@@ -112,6 +122,13 @@ class WPSMS_Scanner {
 		if ( 'running' !== $job['status'] ) {
 			return $job;
 		}
+
+		$lock = isset( $job['tick_lock'] ) ? (int) $job['tick_lock'] : 0;
+		if ( $lock && ( time() - $lock ) < 12 ) {
+			return $job;
+		}
+		$job['tick_lock'] = time();
+		self::save_job( $job );
 
 		try {
 			switch ( $job['phase'] ) {
@@ -149,13 +166,61 @@ class WPSMS_Scanner {
 					self::store_last_scan( $job );
 					break;
 			}
-		} catch ( Exception $e ) {
-			$job['last_error']  = $e->getMessage();
-			$job['status']      = 'error';
-			$job['finished_at'] = time();
+		} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+			$job = self::skip_and_continue( $job, $e->getMessage() );
 		}
 
+		$job['tick_lock'] = 0;
 		self::save_job( $job );
+		return $job;
+	}
+
+	/**
+	 * Skip the current unit of work and keep the scan running.
+	 *
+	 * @param array  $job     Job.
+	 * @param string $message Error.
+	 * @return array
+	 */
+	protected static function skip_and_continue( array $job, $message ) {
+		$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+		$job['last_error'] = substr( (string) $message, 0, 300 );
+		$job['status']     = 'running';
+
+		$phase = isset( $job['phase'] ) ? $job['phase'] : '';
+		if ( 'files' === $phase ) {
+			$job['offset']         = (int) $job['offset'] + 1;
+			$job['files_scanned']  = (int) $job['files_scanned'] + 1;
+			$job['watchdog_file']  = '';
+			$job['watchdog_hits']  = 0;
+		} elseif ( 'inventory' === $phase ) {
+			$state = self::read_inventory_state();
+			if ( ! empty( $state['stack'] ) ) {
+				array_pop( $state['stack'] );
+				self::write_inventory_state( $state );
+			}
+		} elseif ( 'database' === $phase ) {
+			$job['db_offset'] = (int) $job['db_offset'] + 80;
+		} elseif ( 'core' === $phase || 'correlate' === $phase ) {
+			if ( 'core' === $phase ) {
+				$job['phase'] = 'correlate';
+			} else {
+				$job['status']      = 'complete';
+				$job['progress']    = 100;
+				$job['finished_at'] = time();
+				self::store_last_scan( $job );
+			}
+		} else {
+			$next = array(
+				'users'   => 'plugins',
+				'plugins' => 'themes',
+				'themes'  => 'cron',
+				'cron'    => 'database',
+			);
+			if ( isset( $next[ $phase ] ) ) {
+				$job['phase'] = $next[ $phase ];
+			}
+		}
 		return $job;
 	}
 
@@ -169,7 +234,7 @@ class WPSMS_Scanner {
 		$settings = WPSMS_Helpers::settings();
 		$paths    = new WPSMS_Paths();
 		$quick    = ( 'quick' === $job['mode'] );
-		$batch    = (int) $settings['inventory_batch'];
+		$batch    = min( 200, max( 40, (int) $settings['inventory_batch'] ) );
 		$exts     = array_fill_keys( $paths->scan_extensions( $quick ), true );
 		$skip     = $paths->skip_dir_names();
 		$extra    = array_filter( array_map( 'trim', preg_split( '/[\r\n,]+/', (string) $settings['exclude_paths'] ) ) );
@@ -184,19 +249,29 @@ class WPSMS_Scanner {
 			);
 		}
 
-		$added = 0;
-		$fh    = fopen( $list_file, 'ab' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
-		while ( $added < $batch && ! empty( $state['stack'] ) ) {
+		$added    = 0;
+		$deadline = microtime( true ) + 8;
+		$fh       = @fopen( $list_file, 'ab' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+		if ( ! $fh ) {
+			$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+			$job['last_error'] = 'Could not write file list; continuing with later scan phases.';
+			$job['phase']      = 'files';
+			return $job;
+		}
+		while ( $added < $batch && ! empty( $state['stack'] ) && microtime( true ) < $deadline ) {
 			$current = array_pop( $state['stack'] );
-			$real    = realpath( $current );
-			if ( ! $real || isset( $state['seen'][ $real ] ) ) {
-				continue;
-			}
-			$state['seen'][ $real ] = 1;
-			if ( $paths->is_self( $real ) ) {
+			$real    = @realpath( $current ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			if ( ! $real ) {
 				continue;
 			}
 			if ( is_dir( $real ) ) {
+				if ( isset( $state['seen'][ $real ] ) ) {
+					continue;
+				}
+				$state['seen'][ $real ] = 1;
+				if ( $paths->is_self( $real ) ) {
+					continue;
+				}
 				$base = basename( $real );
 				if ( in_array( $base, $skip, true ) ) {
 					continue;
@@ -206,6 +281,8 @@ class WPSMS_Scanner {
 				}
 				$items = @scandir( $real ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 				if ( ! $items ) {
+					++$job['skipped'];
+					$job['last_error'] = 'Skipped unreadable directory: ' . $base;
 					continue;
 				}
 				foreach ( $items as $item ) {
@@ -221,6 +298,9 @@ class WPSMS_Scanner {
 			}
 			$ext = strtolower( pathinfo( $real, PATHINFO_EXTENSION ) );
 			$bn  = strtolower( basename( $real ) );
+			if ( preg_match( '/\.min\.(js|css)$/i', $bn ) ) {
+				continue;
+			}
 			if ( ! isset( $exts[ $ext ] ) && 'htaccess' !== $bn && '.htaccess' !== $bn ) {
 				if ( $paths->is_uploads( $real ) && in_array( $ext, array( 'exe', 'sh', 'bat' ), true ) ) {
 					// keep.
@@ -252,40 +332,84 @@ class WPSMS_Scanner {
 	 */
 	protected static function phase_files( array $job ) {
 		$settings = WPSMS_Helpers::settings();
-		$batch    = (int) $settings['batch_size'];
+		$batch    = min( 20, max( 5, (int) $settings['batch_size'] ) );
 		$offset   = (int) $job['offset'];
 		$lines    = self::read_list_slice( $offset, $batch );
-		$paths    = new WPSMS_Paths();
-		$filescan = new WPSMS_File_Scanner( $paths, $settings );
-		$mailscan = new WPSMS_Mail_Scanner( $paths );
-		$upscan   = new WPSMS_Uploads_Scanner( $paths );
-
-		foreach ( $lines as $path ) {
-			$path = trim( $path );
-			if ( '' === $path ) {
-				continue;
-			}
-			$rows = $filescan->scan_file( $path, $job['scan_id'] );
-			if ( is_readable( $path ) && filesize( $path ) <= (int) $settings['max_file_bytes'] ) {
-				$content = @file_get_contents( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-				if ( is_string( $content ) ) {
-					$meta = WPSMS_Helpers::file_meta( $path );
-					$rows = array_merge( $rows, $mailscan->extra_mail_findings( $path, $content, $job['scan_id'], $meta ) );
-				}
-			}
-			$rows = array_merge( $rows, $upscan->scan_uploads_file( $path, $job['scan_id'] ) );
-			foreach ( $rows as $row ) {
-				WPSMS_Findings_Store::add( $row );
-			}
-			++$job['files_scanned'];
+		if ( empty( $lines ) ) {
+			$job['phase']    = 'users';
+			$job['progress'] = 80;
+			return $job;
 		}
 
-		$job['offset'] = $offset + count( $lines );
-		$total         = max( 1, (int) $job['total_files'] );
-		$job['progress'] = 18 + (int) min( 60, ( $job['files_scanned'] / $total ) * 60 );
+		$first = trim( $lines[0] );
+		if ( $first && isset( $job['watchdog_file'] ) && $first === $job['watchdog_file'] ) {
+			$job['watchdog_hits'] = isset( $job['watchdog_hits'] ) ? (int) $job['watchdog_hits'] + 1 : 1;
+		} else {
+			$job['watchdog_file'] = $first;
+			$job['watchdog_hits'] = 0;
+		}
+		if ( ! empty( $job['watchdog_hits'] ) && (int) $job['watchdog_hits'] >= 2 ) {
+			array_shift( $lines );
+			++$offset;
+			++$job['files_scanned'];
+			$job['skipped']       = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+			$job['last_error']    = 'Skipped stuck file: ' . $first;
+			$job['watchdog_file'] = '';
+			$job['watchdog_hits'] = 0;
+		}
+		self::save_job( $job );
 
-		if ( count( $lines ) < $batch ) {
-			$job['phase'] = 'users';
+		$paths     = new WPSMS_Paths();
+		$filescan  = new WPSMS_File_Scanner( $paths, $settings );
+		$mailscan  = new WPSMS_Mail_Scanner( $paths );
+		$upscan    = new WPSMS_Uploads_Scanner( $paths );
+		$deadline  = microtime( true ) + 8;
+		$processed = 0;
+
+		foreach ( $lines as $path ) {
+			if ( microtime( true ) >= $deadline ) {
+				break;
+			}
+			$path = trim( $path );
+			if ( '' === $path ) {
+				++$processed;
+				continue;
+			}
+			try {
+				$rows = $filescan->scan_file( $path, $job['scan_id'] );
+				$max  = (int) $settings['max_file_bytes'];
+				if ( is_readable( $path ) && is_file( $path ) && filesize( $path ) <= $max ) {
+					$content = @file_get_contents( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+					if ( is_string( $content ) && false === strpos( $content, "\0" ) ) {
+						$meta = WPSMS_Helpers::file_meta( $path );
+						$rows = array_merge( $rows, $mailscan->extra_mail_findings( $path, $content, $job['scan_id'], $meta ) );
+					}
+				}
+				$rows = array_merge( $rows, $upscan->scan_uploads_file( $path, $job['scan_id'] ) );
+				foreach ( $rows as $row ) {
+					try {
+						WPSMS_Findings_Store::add( $row );
+					} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+						$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+						$job['last_error'] = $e->getMessage();
+					}
+				}
+			} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+				$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+				$job['last_error'] = 'Skipped ' . $path . ': ' . $e->getMessage();
+			}
+			++$job['files_scanned'];
+			++$processed;
+		}
+
+		$job['offset']        = $offset + $processed;
+		$total                = max( 1, (int) $job['total_files'] );
+		$job['progress']      = 18 + (int) min( 60, ( $job['files_scanned'] / $total ) * 60 );
+		$job['watchdog_file'] = '';
+		$job['watchdog_hits'] = 0;
+
+		if ( ( $offset + $processed ) >= (int) $job['total_files'] ) {
+			$job['phase']    = 'users';
 			$job['progress'] = 80;
 		}
 		return $job;
@@ -298,17 +422,26 @@ class WPSMS_Scanner {
 	 * @return array
 	 */
 	protected static function phase_database( array $job ) {
-		$scanner = new WPSMS_Database_Scanner();
-		$result  = $scanner->scan_batch( $job['scan_id'], (int) $job['db_offset'], 80 );
-		foreach ( $result['findings'] as $row ) {
-			WPSMS_Findings_Store::add( $row );
-		}
-		$job['db_offset'] = $result['next_offset'];
-		$job['progress']  = min( 96, 92 + (int) ( $job['db_offset'] / 400 ) );
-		if ( $result['done'] ) {
-			$next = ( 'quick' === $job['mode'] ) ? 'correlate' : 'core';
-			$job['phase']    = $next;
-			$job['progress'] = 96;
+		try {
+			$scanner = new WPSMS_Database_Scanner();
+			$result  = $scanner->scan_batch( $job['scan_id'], (int) $job['db_offset'], 80 );
+			foreach ( $result['findings'] as $row ) {
+				try {
+					WPSMS_Findings_Store::add( $row );
+				} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+					$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+					$job['last_error'] = $e->getMessage();
+				}
+			}
+			$job['db_offset'] = $result['next_offset'];
+			$job['progress']  = min( 96, 92 + (int) ( $job['db_offset'] / 400 ) );
+			if ( $result['done'] ) {
+				$next            = ( 'quick' === $job['mode'] ) ? 'correlate' : 'core';
+				$job['phase']    = $next;
+				$job['progress'] = 96;
+			}
+		} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+			$job = self::skip_and_continue( $job, $e->getMessage() );
 		}
 		return $job;
 	}
@@ -324,15 +457,24 @@ class WPSMS_Scanner {
 	 * @return array
 	 */
 	protected static function phase_simple( array $job, $name, $callback, $next, $progress ) {
-		$findings = call_user_func( $callback, $job['scan_id'] );
-		if ( is_array( $findings ) ) {
-			foreach ( $findings as $row ) {
-				WPSMS_Findings_Store::add( $row );
+		try {
+			$findings = call_user_func( $callback, $job['scan_id'] );
+			if ( is_array( $findings ) ) {
+				foreach ( $findings as $row ) {
+					try {
+						WPSMS_Findings_Store::add( $row );
+					} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+						$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+						$job['last_error'] = $e->getMessage();
+					}
+				}
 			}
+		} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+			$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+			$job['last_error'] = $name . ': ' . $e->getMessage();
 		}
 		$job['phase']    = $next;
 		$job['progress'] = $progress;
-		unset( $name );
 		return $job;
 	}
 
@@ -343,9 +485,14 @@ class WPSMS_Scanner {
 	 * @return array
 	 */
 	protected static function phase_correlate( array $job ) {
-		$all     = WPSMS_Findings_Store::all( $job['scan_id'] );
-		$summary = WPSMS_Mail_Scanner::build_incident_summary( $all, $job );
-		update_option( 'wpsms_mail_incident', $summary, false );
+		try {
+			$all     = WPSMS_Findings_Store::all( $job['scan_id'] );
+			$summary = WPSMS_Mail_Scanner::build_incident_summary( is_array( $all ) ? $all : array(), $job );
+			update_option( 'wpsms_mail_incident', $summary, false );
+		} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+			$job['skipped']    = isset( $job['skipped'] ) ? (int) $job['skipped'] + 1 : 1;
+			$job['last_error'] = $e->getMessage();
+		}
 		$job['phase']       = 'done';
 		$job['status']      = 'complete';
 		$job['progress']    = 100;

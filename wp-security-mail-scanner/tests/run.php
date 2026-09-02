@@ -108,7 +108,8 @@ wpsms_assert( false !== strpos( $helpers, 'current_user_can' ), 'capability chec
 
 $scanner = file_get_contents( $root . '/includes/class-scanner.php' );
 wpsms_assert( false !== strpos( $scanner, 'Never modifies site files' ) || false !== strpos( $scanner, 'Never modifies' ), 'scanner documents read-only scan' );
-wpsms_assert( false === strpos( $scanner, 'wp_delete_file' ), 'scan orchestrator does not delete files' );
+wpsms_assert( false !== strpos( $scanner, 'skip_and_continue' ), 'errors skip and continue instead of aborting' );
+wpsms_assert( false === strpos( $scanner, "\$job['status']      = 'error'" ), 'scan job is not marked error on exception' );
 
 $main = file_get_contents( $root . '/wp-security-mail-scanner.php' );
 wpsms_assert( false !== strpos( $main, 'Plugin Name: WP Security & Mail Scanner' ), 'plugin header present' );

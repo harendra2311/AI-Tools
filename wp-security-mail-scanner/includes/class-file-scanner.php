@@ -55,7 +55,7 @@ class WPSMS_File_Scanner {
 		}
 
 		$ext      = strtolower( pathinfo( $path, PATHINFO_EXTENSION ) );
-		$max      = (int) $this->settings['max_file_bytes'];
+		$max      = min( 393216, max( 8192, (int) $this->settings['max_file_bytes'] ) );
 		$meta     = WPSMS_Helpers::file_meta( $path );
 		$relative = $this->paths->relative( $path );
 		$findings = array();
@@ -67,8 +67,11 @@ class WPSMS_File_Scanner {
 			return $findings;
 		}
 
-		$content = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$content = @file_get_contents( $path ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		if ( false === $content ) {
+			return $findings;
+		}
+		if ( false !== strpos( $content, "\0" ) ) {
 			return $findings;
 		}
 
@@ -185,7 +188,12 @@ class WPSMS_File_Scanner {
 		$out   = array();
 		$lines = preg_split( "/\r\n|\n|\r/", $content );
 		foreach ( WPSMS_Patterns::file_patterns() as $pattern ) {
-			if ( ! preg_match_all( $pattern['regex'], $content, $m, PREG_OFFSET_CAPTURE ) ) {
+			try {
+				$matched = preg_match_all( $pattern['regex'], $content, $m, PREG_OFFSET_CAPTURE );
+			} catch ( Throwable $e ) { // phpcs:ignore PHPCompatibility.FunctionDeclarations.NewKeywords.t_throwableFound
+				continue;
+			}
+			if ( ! $matched ) {
 				continue;
 			}
 			$count = 0;

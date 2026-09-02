@@ -44,11 +44,11 @@ class WPSMS_Install {
 	 */
 	public static function default_settings() {
 		return array(
-			'batch_size'          => 40,
-			'inventory_batch'     => 400,
-			'max_file_bytes'      => 1048576,
+			'batch_size'          => 15,
+			'inventory_batch'     => 120,
+			'max_file_bytes'      => 262144,
 			'known_admin_logins'  => '',
-			'exclude_paths'       => "node_modules\nvendor\n.git\n.svn",
+			'exclude_paths'       => "node_modules\nvendor\n.git\n.svn\ncache\nupgrade",
 			'quick_skip_core'     => 1,
 		);
 	}

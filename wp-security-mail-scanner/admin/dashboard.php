@@ -98,7 +98,7 @@ $base = admin_url( 'tools.php?page=wpsms-scanner' );
 				<p id="wpsms-low"><?php echo esc_html( (string) ( (int) $counts['low'] + (int) $counts['info'] ) ); ?></p>
 			</div>
 		</div>
-		<p class="description"><?php esc_html_e( 'Scans are batched over AJAX so large sites do not hit PHP timeouts. The scanner does not change website files while scanning.', 'wp-security-mail-scanner' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Scans run in small batches. If a file or request fails, it is skipped and the scan continues. The scanner does not change website files while scanning.', 'wp-security-mail-scanner' ); ?></p>
 	<?php endif; ?>
 
 	<?php if ( 'findings' === $tab ) : ?>

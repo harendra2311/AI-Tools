@@ -39,5 +39,9 @@ Functions such as `wp_mail()`, `mail()`, `curl_exec()`, and `base64_decode()` ar
 
 == Changelog ==
 
+= 1.0.1 =
+* Skip failing/stuck files and continue the scan instead of stopping.
+* Retry timed-out AJAX requests; smaller batches to reduce timeouts.
+
 = 1.0.0 =
 * Initial release.

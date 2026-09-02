@@ -169,8 +169,9 @@ class WPSMS_Admin {
 	 */
 	public function ajax_start_scan() {
 		WPSMS_Helpers::require_ajax_access();
-		$mode = isset( $_POST['mode'] ) ? sanitize_key( wp_unslash( $_POST['mode'] ) ) : 'full';
-		$job  = WPSMS_Scanner::start( $mode );
+		$mode  = isset( $_POST['mode'] ) ? sanitize_key( wp_unslash( $_POST['mode'] ) ) : 'full';
+		$force = ! empty( $_POST['force'] );
+		$job   = WPSMS_Scanner::start( $mode, $force );
 		wp_send_json_success( $this->status_payload( $job ) );
 	}
 
